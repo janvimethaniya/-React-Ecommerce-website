@@ -1,0 +1,152 @@
+/* === Main Container === */
+.loginsignup {
+display: flex;
+justify-content: center;
+align-items: center;
+min-height: 100vh;
+background: linear-gradient(135deg, #c65f5f, #2575fc);
+font-family: 'Arial', sans-serif;
+}
+
+/* === Card Container === */
+.loginsignup-container {
+background: #fff;
+padding: 40px 30px;
+border-radius: 16px;
+box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+width: 360px;
+max-width: 90%;
+text-align: center;
+transition: all 0.6s ease;
+position: relative;
+overflow: hidden;
+}
+
+/* === Tab Buttons === */
+.tab-buttons {
+display: flex;
+justify-content: center;
+margin-bottom: 25px;
+gap: 10px;
+}
+
+.tab-buttons button {
+flex: 1;
+padding: 10px 0;
+border: none;
+border-radius: 12px;
+cursor: pointer;
+font-weight: bold;
+background: #e0e0e0;
+color: #333;
+transition: all 0.3s;
+}
+
+.tab-buttons button.active {
+background: linear-gradient(90deg, #000000, #6a11cb);
+color: #fff;
+box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.tab-buttons button:hover {
+transform: translateY(-2px);
+}
+
+/* === Headings === */
+.loginsignup h1 {
+margin-bottom: 20px;
+font-size: 26px;
+color: #333;
+animation: slideDown 0.6s ease;
+}
+
+/* === Form Fields === */
+.loginsignup-form {
+display: flex;
+flex-direction: column;
+gap: 15px;
+animation: fadeIn 0.8s ease;
+}
+
+.loginsignup-form input {
+padding: 12px 15px;
+border-radius: 10px;
+border: 1px solid #ccc;
+font-size: 14px;
+transition: all 0.3s;
+}
+
+.loginsignup-form input:focus {
+border-color: #2575fc;
+box-shadow: 0 0 10px rgba(37,117,252,0.3);
+outline: none;
+}
+
+/* === Checkbox === */
+.loginsignup-agree {
+display: flex;
+align-items: center;
+gap: 10px;
+font-size: 13px;
+}
+
+.loginsignup-agree input[type="checkbox"] {
+width: 16px;
+height: 16px;
+cursor: pointer;
+}
+
+/* === Submit Button === */
+.loginsignup-form button {
+padding: 12px 0;
+border: none;
+border-radius: 10px;
+background: linear-gradient(90deg, #000000, #6a11cb);
+color: #fff;
+font-size: 16px;
+font-weight: bold;
+cursor: pointer;
+transition: all 0.3s;
+}
+
+.loginsignup-form button:hover {
+transform: translateY(-2px);
+box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+}
+
+/* === Links & Messages === */
+.loginsignup-login, .loginsignup-forgot {
+margin-top: 12px;
+font-size: 14px;
+color: #555;
+cursor: pointer;
+}
+
+.loginsignup-login span:hover, .loginsignup-forgot:hover {
+color: #91375e;
+}
+
+/* === Error Message === */
+.auth-error {
+margin-top: 15px;
+color: #e74c3c;
+font-weight: bold;
+animation: shake 0.6s;
+}
+
+/* === Animations === */
+@keyframes fadeIn {
+0% { opacity: 0; transform: translateY(-10px);}
+100% { opacity: 1; transform: translateY(0);}
+}
+
+@keyframes slideDown {
+0% { opacity: 0; transform: translateY(-20px);}
+100% { opacity: 1; transform: translateY(0);}
+}
+
+@keyframes shake {
+0%, 100% { transform: translateX(0); }
+20%, 60% { transform: translateX(-8px); }
+40%, 80% { transform: translateX(8px); }
+}
