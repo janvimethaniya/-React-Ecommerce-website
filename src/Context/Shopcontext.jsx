@@ -1,120 +1,156 @@
-import { createContext } from "react";
-import all_product from '../Component/Assets/all_product';
-import { useState, useEffect } from "react";
+import React, { createContext, useState, useEffect } from "react";
 
 export const ShopContext = createContext(null);
 
-// Build default cart keyed by product id with qty and size
+// Default empty cart generator
 const getDefaultCart = () => {
-  const cart = {}
-  for (const p of all_product) {
-    cart[p.id] = { qty: 0, size: '' }
+  const cart = {};
+  for (let i = 1; i <= 200; i++) {
+    cart[i] = { qty: 0, size: "" };
   }
-  return cart
-}
+  return cart;
+};
 
-// Retrieve cart from localStorage or return default
-const getCartFromStorage = () => {
-  try {
-    const saved = localStorage.getItem('shopCart')
-    if (saved) {
-      return JSON.parse(saved)
+const ShopContextProvider = ({ children }) => {
+  const [products, setProducts] = useState([]); // all products
+  const [cartItems, setCartItems] = useState(getDefaultCart());
+
+  // Clear Cart function
+  const clearCart = () => {
+    const newCart = getDefaultCart();
+    setCartItems(newCart);
+
+    if (localStorage.getItem("auth-token")) {
+      // Reset cart in backend too
+      fetch("http://localhost:7000/getcart", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("auth-token"),
+        },
+        body: JSON.stringify({}),
+      });
     }
-  } catch (e) {
-    console.error('Error reading cart from localStorage:', e)
-  }
-  return getDefaultCart()
-}
+  };
 
-const ShopContextProvider = (props) => {
-  const [cartItems, setCartItems] = useState(getCartFromStorage())
-
-  // Save cart to localStorage whenever it changes
+  // ==========================
+  // FETCH ALL PRODUCTS
+  // ==========================
   useEffect(() => {
-    try {
-      localStorage.setItem('shopCart', JSON.stringify(cartItems))
-    } catch (e) {
-      console.error('Error saving cart to localStorage:', e)
-    }
-  }, [cartItems])
+    fetch("http://localhost:7000/allproducts")
+      .then((res) => res.json())
+      .then((data) => setProducts(data))
+      .catch((err) => console.log("Fetch Products Error:", err));
 
-  // increment quantity by 1 (keep existing size)
+    // Fetch saved cart if logged in
+    if (localStorage.getItem("auth-token")) {
+      fetch("http://localhost:7000/getcart", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("auth-token"),
+        },
+        body: "",
+      })
+        .then((res) => res.json())
+        .then((data) => setCartItems(data))
+        .catch((err) => console.log("Cart Fetch Error:", err));
+    }
+  }, []);
+
+  // ==========================
+  // CART ACTIONS
+  // ==========================
   const addToCart = (itemId) => {
     setCartItems((prev) => ({
       ...prev,
-      [itemId]: {
-        qty: ((prev[itemId]?.qty) || 0) + 1,
-        size: prev[itemId]?.size || ''
-      }
-    }))
-  }
+      [itemId]: { qty: prev[itemId].qty + 1, size: prev[itemId].size },
+    }));
 
-  // add to cart with specified size
-  const addToCartWithSize = (itemId, size) => {
-    setCartItems((prev) => ({
-      ...prev,
-      [itemId]: {
-        qty: ((prev[itemId]?.qty) || 0) + 1,
-        size: size
-      }
-    }))
-  }
+    if (localStorage.getItem("auth-token")) {
+      fetch("http://localhost:7000/addtocart", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("auth-token"),
+        },
+        body: JSON.stringify({ itemId }),
+      });
+    }
+  };
 
-  // decrement quantity by 1 (not below 0)
+  const addToCartWithSize = (id, size) => {
+    setCartItems((prev) => {
+      const existing = prev[id] || { qty: 0, size: size };
+      return {
+        ...prev,
+        [id]: {
+          qty: existing.qty + 1,
+          size: size,
+        },
+      };
+    });
+  };
+
   const removeFromCart = (itemId) => {
     setCartItems((prev) => ({
       ...prev,
-      [itemId]: {
-        qty: Math.max(((prev[itemId]?.qty) || 0) - 1, 0),
-        size: prev[itemId]?.size || ''
-      }
-    }))
-  }
+      [itemId]: { qty: Math.max(prev[itemId].qty - 1, 0), size: prev[itemId].size },
+    }));
 
-  // set exact quantity for an item (qty >= 0)
+    if (localStorage.getItem("auth-token")) {
+      fetch("http://localhost:7000/removefromcart", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("auth-token"),
+        },
+        body: JSON.stringify({ itemId }),
+      });
+    }
+  };
+
   const setItemQuantity = (itemId, qty) => {
-    const normalized = Math.max(0, Number(qty) || 0)
+    const value = Math.max(0, Number(qty) || 0);
     setCartItems((prev) => ({
       ...prev,
-      [itemId]: {
-        qty: normalized,
-        size: prev[itemId]?.size || ''
-      }
-    }))
-  }
+      [itemId]: { qty: value, size: prev[itemId].size },
+    }));
+  };
 
-  // remove item from cart (set qty to 0)
   const deleteFromCart = (itemId) => {
     setCartItems((prev) => ({
       ...prev,
-      [itemId]: { qty: 0, size: '' }
-    }))
-  }
+      [itemId]: { qty: 0, size: "" },
+    }));
+  };
 
+  // ==========================
+  // TOTAL CART CALCULATIONS
+  // ==========================
   const getTotalCartAmount = () => {
-    let totalAmount = 0
-    for (const itemId in cartItems) {
-      const item = cartItems[itemId]
-      const qty = item?.qty || 0
-      if (qty > 0) {
-        const itemInfo = all_product.find((product) => Number(product.id) === Number(itemId))
-        if (itemInfo) totalAmount += itemInfo.new_price * qty
+    let total = 0;
+    for (let id in cartItems) {
+      if (cartItems[id].qty > 0) {
+        const product = products.find((p) => p.id == id);
+        if (product) total += product.new_price * cartItems[id].qty;
       }
     }
-    return totalAmount
-  }
+    return total;
+  };
 
   const getTotalItems = () => {
-    let total = 0
-    for (const itemId in cartItems) {
-      const qty = cartItems[itemId]?.qty || 0
-      total += qty
-    }
-    return total
-  }
+    let count = 0;
+    for (let id in cartItems) count += cartItems[id].qty;
+    return count;
+  };
 
   const contextValue = {
-    all_product,
+    all_product: products,
     cartItems,
     addToCart,
     addToCartWithSize,
@@ -123,13 +159,10 @@ const ShopContextProvider = (props) => {
     deleteFromCart,
     getTotalCartAmount,
     getTotalItems,
-  }
+    clearCart,
+  };
 
-  return (
-    <ShopContext.Provider value={contextValue}>
-      {props.children}
-    </ShopContext.Provider>
-  )
-}
+  return <ShopContext.Provider value={contextValue}>{children}</ShopContext.Provider>;
+};
 
 export default ShopContextProvider;

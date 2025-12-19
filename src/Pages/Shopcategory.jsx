@@ -1,57 +1,70 @@
-import React, { useContext } from 'react'
-import './css/ShopCategory.css'
-import { ShopContext } from '../Context/Shopcontext'
-import dropdown_icon from '../Component/Assets/dropdown_icon.png'
-import { Link } from 'react-router-dom'
+import React, { useState } from "react";
+import "./css/ShopCategory.css";
 
-const Shopcategory = (props) => {
+const Shopcategory = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: ""
+  });
 
-  const { all_product } = useContext(ShopContext)
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form Data:", formData);
+    alert("Message Sent!");
+    setFormData({ name: "", email: "", message: "" });
+  };
 
   return (
-    <div className='shop-category'>
+    <div className="contact-page">
+      <h1>Contact Us</h1>
+      <p>We'd love to hear from you! Fill out the form below.</p>
 
-      {/* Banner */}
-      <img src={props.banner} alt="" />
+      <div className="contact-container">
+        <form className="contact-form" onSubmit={handleSubmit}>
+          <label>Name</label>
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
 
-      {/* Sort Section */}
-      <div className='shopcategory-indexSort'>
-        <p>
-          <span>Showing 1-12</span> out of 36 products
-        </p>
+          <label>Email</label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
 
-        <div className='shopcategory--sort'>
-          Sort by
-          <img src={dropdown_icon} alt="" />
+          <label>Message</label>
+          <textarea
+            name="message"
+            value={formData.message}
+            onChange={handleChange}
+            rows="5"
+            required
+          />
+
+          <button type="submit">Send Message</button>
+        </form>
+
+        <div className="contact-info">
+          <h3>Our Info</h3>
+          <p><strong>Address:</strong> 123 Main Street, City, Country</p>
+          <p><strong>Email:</strong> info@example.com</p>
+          <p><strong>Phone:</strong> +91 1234567890</p>
         </div>
       </div>
-
-      {/* Product List */}
-      <div className='shopcategory-products'>
-        {all_product?.length > 0 &&
-          all_product.map((item, i) => {
-            if (props.category && props.category === item.category) {
-              return (
-                <div className="product-box" key={i}>
-
-                  <Link to={`/product/${item.id}`}>
-                    <img src={item.image} alt="" />
-                  </Link>
-
-                  <h3>{item.name}</h3>
-                  <p>₹{item.new_price}</p>
-
-                </div>
-              )
-            } else {
-              return null
-            }
-          })
-        }
-      </div>
-
     </div>
-  )
-}
+  );
+};
 
-export default Shopcategory
+export default Shopcategory;

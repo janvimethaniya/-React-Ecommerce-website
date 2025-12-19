@@ -15,21 +15,24 @@ const Navbar = () => {
     <div className='navbar'>
         <div className='nav-logo'>
             <img src={logo} alt="" />
+           
     <ul className='nav-menu'>
-        <li onClick={()=>{setMenu("shop")}}><Link to='/'>shop <hr /></Link></li>
-        <li onClick={()=>{setMenu("mens")}}><Link to='/mens'>men</Link></li>
-        <li onClick={()=>{setMenu("womens")}}><Link to='/womens'>women</Link></li>
-        <li onClick={()=>{setMenu("kids")}}><Link to='/kids'>kids</Link></li>
+        <li onClick={()=>{setMenu("shop")}}><Link to='/'>Shop <hr /></Link></li>
+        <li onClick={()=>{setMenu("about")}}><Link to='/About'>About</Link></li>
+        <li onClick={()=>{setMenu("contact")}}><Link to='/Contact'>Contact</Link></li>
+
     </ul>
     <div className='nav-login-cart'>
-      <Link to='/login'>  <button>Login</button></Link>
+      {localStorage.getItem('auth-token')
+      ?<button onClick={()=>{localStorage.removeItem('auth-token');window.location.replace('/')}}>Logout</button>
+      :<Link to='/login'>  <button>Login</button></Link>}
+      
         <Link to='/cart'>  <img src={cart_icon} alt="" /></Link>
         <div className='nav-cart-count'>{totalItems}</div>
     </div>
 
         </div>
-      
-    </div>
+      </div>
   )
 }
 

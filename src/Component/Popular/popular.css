@@ -1,24 +1,35 @@
-.popular{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap:17px;
-    height: 90vh;
+.popular-section {
+  padding: 10px 5%;
 }
-.popular h1{
-    color:black;
-    font-size: 50px;
-    font-weight: 600;
+
+.popular-title {
+  text-align: center;
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 45px;
 }
-.popular hr{
-    width:200px;
-    height: 6px;
-    border-radius: 10px;
-    background-color: cadetblue;
+
+.popular-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
 }
-.popular-item{
-    margin-top: 50px;
-    display: flex;
-    gap:15px;
-    color:black;
+
+.popular-card {
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.popular-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.4s;
+}
+
+.popular-card:hover img {
+  transform: scale(1.15);
 }

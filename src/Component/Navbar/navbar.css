@@ -1,13 +1,11 @@
-/* =======================
-      PREMIUM NAVBAR CSS
-   ======================= */
+
 
 .navbar {
   width: 100%;
   position: fixed;
   top: 0;
   z-index: 9999;
-  background: #ffffff;
+  background: #234752;
   
   box-shadow: 0 2px 10px rgba(0,0,0,0.08);
 }
@@ -49,13 +47,13 @@
 
 .nav-menu li a {
   text-decoration: none;
-  color: #222;
+  color: #fffafa;
   transition: 0.3s ease;
 }
 
 
 .nav-menu li:hover a {
-  color: #ff3b6a;
+  color: #e26136;
 }
 
 
@@ -80,6 +78,7 @@
   display: flex;
   align-items: center;
   gap: 35px;
+  color: #fffafa;
 }
 
 .nav-login-cart button {
@@ -87,7 +86,7 @@
   border-radius: 40px;
   border: none;
   font-size: 16px;
-  background: #ff3b6a;
+  background: #de684a;
   color: #fff;
   cursor: pointer;
   font-weight: 600;

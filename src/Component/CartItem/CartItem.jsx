@@ -126,7 +126,7 @@ const CartItem = ({
 
         <div className="cart-item-actions">
           <button className="action-btn edit" onClick={handleOpenEdit}>Edit</button>
-          <button className="action-btn wishlist" title="Add to wishlist">♥</button>
+         
           <button className="action-btn remove" onClick={() => onDelete(id)}>Remove</button>
         </div>
       </div>

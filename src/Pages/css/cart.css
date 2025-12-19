@@ -1,130 +1,141 @@
-/* ============================
-   CART PAGE WRAPPER
-============================ */
+/* ================================
+   GLOBAL STYLING
+================================ */
 .cart-page {
   width: 100%;
   max-width: 1250px;
-  margin: 40px auto;
-  padding: 0 20px;
+  margin: auto;
+  padding: 40px 20px;
+  font-family: "Poppins", sans-serif;
 }
 
 .cart-page h1 {
-  font-size: 30px;
-  font-weight: 700;
+  font-size: 32px;
+  font-weight: 600;
   margin-bottom: 25px;
   color: #222;
 }
 
-/* EMPTY CART MESSAGE */
+/* ================================
+   EMPTY CART
+================================ */
 .cart-empty {
   padding: 40px;
   text-align: center;
   font-size: 18px;
-  background: #f6f6f6;
+  color: #777;
+  background: #fff;
   border-radius: 12px;
-  color: #666;
-  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
 }
 
-
-/* ============================
-   GRID LAYOUT (LEFT ITEMS + RIGHT SUMMARY)
-============================ */
+/* ================================
+   GRID LAYOUT
+================================ */
 .cart-grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 25px;
-  margin-top: 10px;
+  gap: 30px;
 }
 
-/* LEFT: CART ITEM LIST */
 .cart-list {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
 }
 
-
-/* ============================
-   RIGHT: ORDER SUMMARY BOX
-============================ */
+/* ================================
+   CART SUMMARY CARD
+================================ */
 .cart-summary {
-  background: #ffffff;
-  padding: 22px;
+  background: #fff;
+  padding: 25px;
   border-radius: 14px;
-  border: 1px solid #eeeeee;
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 7px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+  height: fit-content;
+  position: sticky;
+  top: 20px;
 }
 
 .cart-summary h3 {
   font-size: 22px;
   font-weight: 600;
-  margin-bottom: 22px;
-  color: #111;
+  margin-bottom: 20px;
+  color: #333;
 }
 
 .summary-row {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 12px;
+  color: #666;
   font-size: 16px;
-  margin-bottom: 14px;
-  color: #444;
 }
 
 .summary-total {
   display: flex;
   justify-content: space-between;
-  font-size: 19px;
-  font-weight: 700;
-  margin-top: 18px;
-  padding-top: 18px;
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #111;
+  padding-top: 15px;
   border-top: 1px solid #ddd;
 }
 
-
-
-/* ============================
-   CHECKOUT BUTTON
-============================ */
+/* ================================
+   BUTTON
+================================ */
 .checkout-btn {
   width: 100%;
-  padding: 14px;
-  margin-top: 22px;
-  font-size: 17px;
-  font-weight: 600;
-  background: #6a5acd;
+  margin-top: 25px;
+  padding: 14px 0;
+  background: #ff3f6c; /* Meesho/Pink tone */
   color: #fff;
+  font-size: 18px;
+  font-weight: 600;
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  transition: 0.25s ease;
+  transition: 0.3s ease;
 }
 
 .checkout-btn:hover {
-  background: #5a49c7;
+  background: #e0335d;
+}
+.checkout-success {
+  background: #d4f8d4;
+  color: #256029;
+  padding: 15px 18px;
+  border-radius: 10px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  border: 1px solid #a6e3a1;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  font-weight: 500;
 }
 
 
-
-/* ============================
-   RESPONSIVE DESIGN
-============================ */
+/* ================================
+   RESPONSIVE
+================================ */
 @media (max-width: 900px) {
   .cart-grid {
     grid-template-columns: 1fr;
   }
 
   .cart-summary {
-    margin-top: 20px;
+    position: relative;
+    top: 0;
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
   .cart-page h1 {
-    font-size: 24px;
+    font-size: 26px;
   }
 
-  .checkout-btn {
-    font-size: 16px;
+  .summary-total {
+    font-size: 18px;
   }
 }

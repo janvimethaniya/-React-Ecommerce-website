@@ -1,6 +1,6 @@
 .footer {
   width: 100%;
-  background: #ffff;
+  background: #234752;
   padding: 40px 0;
   display: flex;
   flex-direction: column;
@@ -26,7 +26,7 @@
 .footer-logo p {
   font-size: 24px;
   font-weight: 600;
-  color: #333;
+  color: #f5f0f0;
 }
 
 .footer-link {
@@ -37,13 +37,13 @@
 
 .footer-link li {
   font-size: 18px;
-  color: #555;
+  color: #ffffff;
   cursor: pointer;
   transition: 0.3s;
 }
 
 .footer-link li:hover {
-  color: #000;
+  color: #fc1f1f;
 }
 
 .social-link {
@@ -81,7 +81,7 @@
 .footer-copyright hr {
   border: none;
   height: 1px;
-  background: #ccc;
+  background: #090909;
   width: 80%;
   margin: auto;
   margin-bottom: 10px;
@@ -89,5 +89,5 @@
 
 .footer-copyright p {
   font-size: 16px;
-  color: #666;
+  color: #0c0c0c;
 }

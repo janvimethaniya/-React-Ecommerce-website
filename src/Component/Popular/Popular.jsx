@@ -1,27 +1,28 @@
-import React from 'react';
-import data_product from '../Assets/data';
-import './popular.css'
-import Item from '../item/Item';    
+import React from "react";
+import "./popular.css";
+
+// 🔥 IMPORT IMAGES FROM TOP
+import img1 from "../Assets/img1.jpg";
+import img2 from "../Assets/img2.jpg";
+import img3 from "../Assets/img3.jpg";
+import img4 from "../Assets/img4.jpg";
+import img5 from "../Assets/img5.jpg";
+
 
 const Popular = () => {
   return (
-    <div className='popular'>
-      <h1>POPULAR IN WOMEN</h1>
-      <hr />
+    <div className="popular-section">
+      <h2 className="popular-title">✨ Popular Collections</h2>
 
-      <div className='popular-item'>
-        {data_product.map((item, i) => {
-          return (
-            <Item 
-              key={i} 
-              id={item.id} 
-              name={item.name} 
-              image={item.image} 
-              new_price={item.new_price} 
-              old_price={item.old_price} 
-            />
-          );
-        })}
+      <div className="popular-grid">
+
+        <div className="popular-card"><img src={img1} alt="" /></div>
+        <div className="popular-card"><img src={img2} alt="" /></div>
+        <div className="popular-card"><img src={img3} alt="" /></div>
+        <div className="popular-card"><img src={img4} alt="" /></div>
+        <div className="popular-card"><img src={img5} alt="" /></div>
+       
+
       </div>
     </div>
   );

@@ -1,0 +1,123 @@
+.about-page {
+  padding: 100px;
+  animation: fadeIn 0.8s ease;
+}
+
+/* HERO SECTION */
+.about-hero {
+  text-align: center;
+  padding: 70px 20px;
+  background: linear-gradient(135deg, #136a8a, #267871);
+  color: white;
+  border-radius: 15px;
+  animation: slideDown 0.8s ease;
+}
+
+.about-hero h1 {
+  font-size: 38px;
+  font-weight: 700;
+}
+
+.about-hero p {
+  margin-top: 10px;
+  font-size: 18px;
+  opacity: 0.9;
+}
+
+/* MAIN CONTENT */
+.about-section {
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+  align-items: center;
+  animation: slideUp 0.8s ease;
+}
+
+.about-image img {
+  width: 420px;
+  border-radius: 50%;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+}
+
+.about-text {
+  max-width: 520px;
+}
+
+.about-text h2 {
+  font-size: 38px;
+  margin-bottom: 10px;
+}
+
+.about-text p {
+  font-size: 20px;
+  color: #555;
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+/* WHY CHOOSE US */
+.features {
+  margin-top: 60px;
+  text-align: center;
+}
+
+.features h2 {
+  font-size: 30px;
+  margin-bottom: 30px;
+}
+
+.feature-boxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  justify-content: center;
+}
+
+.feature-card {
+  width: 250px;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  transition: 0.3s ease;
+  animation: fadeIn 1s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+}
+
+.feature-card h3 {
+  margin-bottom: 10px;
+  color: #136a8a;
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .about-image img {
+    width: 100%;
+  }
+
+  .feature-card {
+    width: 90%;
+  }
+}
